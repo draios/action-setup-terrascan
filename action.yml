@@ -6,5 +6,11 @@ inputs:
     required: false
     default: '1.11.0'
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v2
+    - run: |
+        chmod +x ${{ github.action_path }}/main.sh
+        ls -l ${{ github.action_path }}/main.sh
+        ${{ github.action_path }}/main.sh
+      shell: bash
