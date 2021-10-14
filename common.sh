@@ -11,7 +11,8 @@ print_title(){
 
 get_terrascan() {
     cd ${RUNNER_TEMP} 
-    mkdir terrascan && cd terrascan
+    mkdir terrascan
+    cd terrascan
     curl -Lo ./terrascan.tar.gz "https://github.com/accurics/terrascan/releases/download/v${TERRASCAN_VERSION}/terrascan_${TERRASCAN_VERSION}_Linux_x86_64.tar.gz"
     tar -xzf terrascan.tar.gz
     pwd && ls -l
