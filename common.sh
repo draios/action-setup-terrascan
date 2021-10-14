@@ -11,10 +11,11 @@ print_title(){
 
 get_terrascan() {
     cd /tmp
-    curl -Lo ./terrascan.tar.gz "https://github.com/accurics/terrascan/releases/download/v${TERRASCAN_VERSION}/terrascan_${TERRASCAN_VERSION}_Linux_x86_64.tar.gz"
-    tar -xzf terrascan.tar.gz
-    chmod +x terrascan
-    mv -f terrascan /usr/local/bin/terrascan
+    curl -Lo ${RUNNER_TEMP}/terrascan.tar.gz "https://github.com/accurics/terrascan/releases/download/v${TERRASCAN_VERSION}/terrascan_${TERRASCAN_VERSION}_Linux_x86_64.tar.gz"
+    tar -xzf ${RUNNER_TEMP}/terrascan.tar.gz
+    chmod 0755 ${RUNNER_TEMP}/terrascan/terrascan
+    export PATH=${RUNNER_TEMP}/terrascan:${PATH}
+    echo ${PATH}
     terrascan version
 }
 
@@ -27,6 +28,7 @@ install_terrascan() {
         echo "terrascan $(terrascan version | cut -d' ' -f2) is not desired version"
         get_terrascan
     fi
+    terrascan init
 }
 
 remove_terrascan(){
