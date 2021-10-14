@@ -3,6 +3,7 @@ const path = require('path');
 
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
+const exec = require('@actions/exec');
 
 async function downloadCLI(url) {
   core.debug(`Downloading terrascan CLI from ${url}`);
@@ -29,6 +30,7 @@ async function run() {
     const pathToCLI = await downloadCLI(url);
 
     core.addPath(pathToCLI);
+    await exec.exec('terrascan init');
 
     // const matchersPath = path.join(__dirname, '..', '.github');
     // core.info(`##[add-matcher]${path.join(matchersPath, 'matchers.json')}`);
