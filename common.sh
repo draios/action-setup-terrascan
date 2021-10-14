@@ -10,11 +10,13 @@ print_title(){
 }
 
 get_terrascan() {
-    cd /tmp
-    curl -Lo ${RUNNER_TEMP}/terrascan.tar.gz "https://github.com/accurics/terrascan/releases/download/v${TERRASCAN_VERSION}/terrascan_${TERRASCAN_VERSION}_Linux_x86_64.tar.gz"
-    tar -xzf ${RUNNER_TEMP}/terrascan.tar.gz
-    chmod 0755 ${RUNNER_TEMP}/terrascan
-    export PATH=${RUNNER_TEMP}:${PATH}
+    cd ${RUNNER_TEMP} 
+    mkdir terrascan && cd terrascan
+    curl -Lo ./terrascan.tar.gz "https://github.com/accurics/terrascan/releases/download/v${TERRASCAN_VERSION}/terrascan_${TERRASCAN_VERSION}_Linux_x86_64.tar.gz"
+    tar -xzf terrascan.tar.gz
+    pwd && ls -l
+    chmod 0755 terrascan
+    export PATH=${PWD}:${PATH}
     echo ${PATH}
     terrascan version
 }
